@@ -1,7 +1,7 @@
 {
-  "name": "react-testutils-extended",
+  "name": "react-testutils-additions",
   "version": "0.0.1",
-  "description": "A module that will extend the default react testutils with a more convenient API",
+  "description": "A module that will extend the default react testutils with extra helpers that will make life easier when testing your react components.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
@@ -10,6 +10,7 @@
     "react",
     "testutils",
     "extended",
+    "additions",
     "testing"
   ],
   "author": "Ronald van der Kooij",

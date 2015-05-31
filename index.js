@@ -1,9 +1,9 @@
 "use strict";
 var ReactTestUtils = require("react/addons").addons.TestUtils;
 
-var RTE = ReactTestUtils;
+var RTA = ReactTestUtils;
 
-RTE.find = function(root, selector){
+RTA.find = function(root, selector){
 	var segments = selector.split(" ");
 
 	var lastFound = null;
@@ -37,14 +37,14 @@ function find(root, selector){
 	}
 }
 
-RTE.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
+RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
     return ReactTestUtils.findAllInRenderedTree(root, function(inst) {
         return ReactTestUtils.isDOMComponent(inst) &&
                 inst.props.hasOwnProperty(propName) &&
                 inst.props[propName] === propValue;});
 };
 
-RTE.findRenderedDOMComponentWithId = function(root, propValue) {
+RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     var all = this.scryRenderedDOMComponentsWithAttributeValue(root, "id", propValue);
     if (all.length !== 1) {
         throw new Error('Did not find exactly one match for id:' + propValue);
@@ -53,6 +53,6 @@ RTE.findRenderedDOMComponentWithId = function(root, propValue) {
 };
 
 if (typeof module === "object" && typeof module.exports === "object" ) {	
-	module.exports = RTE;
+	module.exports = RTA;
 } 
-window.ReactTestUtilsExtended = RTE;
+window.ReactTestUtilsAdditions = RTA;
