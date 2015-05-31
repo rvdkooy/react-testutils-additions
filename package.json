@@ -4,7 +4,7 @@
   "description": "A module that will extend the default react testutils with a more convenient API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "keywords": [
     "react",
@@ -26,11 +26,11 @@
     "karma-chrome-launcher": "~0.1.2",
     "karma-jasmine": "^0.2.2",
     "karma-phantomjs-launcher": "~0.1.2",
-    "react": "^0.13.3",
+    "react": "0.13.x",
     "reactify": "^1.1.0"
   },
-  "dependencies": {
-    "object-assign": "^2.0.0"
+  "peerDependencies": {
+    "react": "0.13.x"
   },
   "browserify": {
     "transform": [
