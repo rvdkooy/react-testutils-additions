@@ -1,5 +1,6 @@
 "use strict";
-var ReactTestUtils = require("react/addons").addons.TestUtils;
+var React = require("react/addons");
+var ReactTestUtils = React.addons.TestUtils;
 
 var RTA = ReactTestUtils;
 
@@ -7,14 +8,18 @@ RTA.find = function(root, selector){
 	var segments = selector.split(" ");
 
 	var lastFound = null;
+	
 	for (var i = 0; i < segments.length; i++) {
 
-		lastFound = find(root, segments[i]);
-		
-		if(lastFound && lastFound.length){
-			root = lastFound[0]; // just pick the first one, very naive for now...
+		if(root.length > 0){
+			lastFound = [];
+			
+			for (var j = 0; j < root.length; j++) {
+				lastFound = lastFound.concat(find(root[j], segments[i]));
+			}
 		}
-		else if(lastFound){
+		else{
+			lastFound = find(root, segments[i]);
 			root = lastFound;
 		}
 	}
@@ -52,7 +57,8 @@ RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     return all[0];
 };
 
-if (typeof module === "object" && typeof module.exports === "object" ) {	
-	module.exports = RTA;
-} 
-window.ReactTestUtilsAdditions = RTA;
+RTA.unMountFromDocument = function(root){
+	React.unmountComponentAtNode(React.findDOMNode(root).parentNode);
+};
+
+module.exports = RTA;

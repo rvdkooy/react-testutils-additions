@@ -3,20 +3,37 @@ var TestUtils = require('../index.js');
 
 describe("react-testutils-additions tests", function(){
 
-	it("it should expose all the default react testutil props and methods", function(){
+	describe("default react testutils helpers", function(){
 		
-		expect(TestUtils.renderIntoDocument).toBeDefined();
+		it("it should expose all the default react testutil props and methods", function(){
 		
-		expect(TestUtils.findRenderedComponentWithType).toBeDefined();
-		expect(TestUtils.findRenderedDOMComponentWithClass).toBeDefined();
-		expect(TestUtils.findRenderedDOMComponentWithTag).toBeDefined();
+			expect(TestUtils.renderIntoDocument).toBeDefined();
+			
+			expect(TestUtils.findRenderedComponentWithType).toBeDefined();
+			expect(TestUtils.findRenderedDOMComponentWithClass).toBeDefined();
+			expect(TestUtils.findRenderedDOMComponentWithTag).toBeDefined();
+			
+			expect(TestUtils.scryRenderedComponentsWithType).toBeDefined();
+			expect(TestUtils.scryRenderedDOMComponentsWithClass).toBeDefined();
+			expect(TestUtils.scryRenderedDOMComponentsWithTag).toBeDefined();
+			
+			expect(TestUtils.Simulate).toBeDefined();
+			// and more...
+		});
 		
-		expect(TestUtils.scryRenderedComponentsWithType).toBeDefined();
-		expect(TestUtils.scryRenderedDOMComponentsWithClass).toBeDefined();
-		expect(TestUtils.scryRenderedDOMComponentsWithTag).toBeDefined();
-		
-		expect(TestUtils.Simulate).toBeDefined();
-		// and more...
+		it("it should unmount a component when calling the unMountFromDocument func", function(){
+			var wasUnmounted = false;
+			
+			var Component = React.createClass({
+				componentWillUnmount: function(){ wasUnmounted = true; },
+				render: function(){ return (<div></div>); }
+			});
+
+			var doc = TestUtils.renderIntoDocument(<Component />);
+			TestUtils.unMountFromDocument(doc);
+			
+			expect(wasUnmounted).toBe(true);
+		});
 	});
 
 	describe("scry and find helpers", function(){
@@ -86,7 +103,7 @@ describe("react-testutils-additions tests", function(){
 		expect(React.findDOMNode(result[1]).innerHTML).toBe("2");
 	});
 
-	it("it should be able to find components with a combined selector", function(){
+	it("it should be able to find nested components with a selector", function(){
 		var Component = React.createClass({
 			render: function(){ 
 				return (
@@ -104,6 +121,30 @@ describe("react-testutils-additions tests", function(){
 
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum");
+	});
+
+	it("it should be able to find multiple nested components with a selector", function(){
+		var Component = React.createClass({
+			render: function(){ 
+				return (
+					<div id="myid">
+						<article>
+							<span className="mytext">Lorem ipsum 1</span>
+						</article>
+						<article>
+							<span className="mytext">Lorem ipsum 2</span>
+						</article>
+					</div>); 
+			}
+		});
+
+		var doc = TestUtils.renderIntoDocument(<Component />);
+		
+		var result = TestUtils.find(doc, "#myid article .mytext");
+
+		expect(result.length).toBe(2);
+		expect(React.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum 1");
+		expect(React.findDOMNode(result[1]).innerHTML).toBe("Lorem ipsum 2");
 	});
 
 	it("it should return an empty array when a component by tag could not be found", function(){
