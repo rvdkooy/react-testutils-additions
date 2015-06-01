@@ -61,7 +61,6 @@ describe("react-testutils-additions tests", function(){
 			expect(result.length).toBe(1);
 		})	
 	});
-
 		
 	it("it should be able to find components with a class selector", function(){
 		var Component = React.createClass({
@@ -162,6 +161,18 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(doc, "#myid span");
 
 		expect(result.length).toBe(0);
+	});
+
+	it("it should be able to findone", function(){
+		var Component = React.createClass({
+			render: function(){ return (<div className="myclass"></div>); }
+		});
+
+		var doc = TestUtils.renderIntoDocument(<Component />);
+		
+		var result = TestUtils.findOne(doc, ".myclass");
+
+		expect(React.findDOMNode(result).className).toBe("myclass");
 	});
 
 	it("it should throw an error when a component by its id could not be found", function(){

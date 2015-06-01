@@ -42,6 +42,20 @@ function find(root, selector){
 	}
 }
 
+RTA.findOne = function(root, selector){
+	var result = this.find(root, selector);
+
+	if(result && (result.length && result.length !== 1) ){
+		throw new Error("find one failed, found: " + result.length);
+	}
+	
+	if(result.length){
+		return	result[0];
+	}
+	
+	return result;
+};
+
 RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
     return ReactTestUtils.findAllInRenderedTree(root, function(inst) {
         return ReactTestUtils.isDOMComponent(inst) &&
