@@ -16,7 +16,7 @@ testUtilsAdditions.findRenderedDOMComponentWithClass(component, "myclassname");
 
 
 ##### Find API
-By using the default React TestUtils API, finding components can be quite verbose, therefor I created simpler API based on basic CSS selectors to find you components:
+By using the default React TestUtils API, finding components can be quite verbose, therefore I created a simpler API based on basic CSS selectors to find you components:
 
 ``` Javascript
 var testUtilsAdditions = require("react-testutils-additions");
@@ -34,11 +34,14 @@ testUtilsAdditions.find(component, "#myid");
 
 // You can even combine the selectors as it is done in regular CSS
 testUtilsAdditions.find(component, "#myid div .myclassname");
+
+// If you want to find one component by its classname:
+testUtilsAdditions.findOne(component, ".myclass"); // If more is found, this will throw!
 ```
 
 
 ##### findRenderedDOMComponentWithId
-I always found it weird that you couldn't find components based on their Id, so I extended the TestUtils with a helper for that.
+The default React Testutils don't support finding components based on its Id, so I extended the TestUtils with a helper for that.
 
 ``` Javascript
 var testUtilsAdditions = require("react-testutils-additions");
