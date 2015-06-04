@@ -107,19 +107,24 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ 
 				return (
 					<div id="myid">
-						<article>
-							<span className="mytext">Lorem ipsum</span>
-						</article>
+						<ul>
+							<li className="active">
+								<button>active</button>
+							</li>
+							<li className="notactive">
+								<button>notactive</button>
+							</li>
+						</ul>
 					</div>); 
 			}
 		});
 
 		var doc = TestUtils.renderIntoDocument(<Component />);
 		
-		var result = TestUtils.find(doc, "#myid article .mytext");
+		var result = TestUtils.find(doc, "#myid .active button");
 
 		expect(result.length).toBe(1);
-		expect(React.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum");
+		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
 	});
 
 	it("it should be able to find multiple nested components with a selector", function(){

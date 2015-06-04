@@ -13,15 +13,14 @@ RTA.find = function(root, selector){
 
 		if(root.length > 0){
 			lastFound = [];
-			
 			for (var j = 0; j < root.length; j++) {
 				lastFound = lastFound.concat(find(root[j], segments[i]));
 			}
 		}
 		else{
 			lastFound = find(root, segments[i]);
-			root = lastFound;
 		}
+		root = lastFound;
 	}
 
 	return lastFound;
