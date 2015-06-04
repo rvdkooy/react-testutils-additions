@@ -163,16 +163,49 @@ describe("react-testutils-additions tests", function(){
 		expect(result.length).toBe(0);
 	});
 
-	it("it should be able to findone", function(){
+	it("it should be able to findone when there is only one", function(){
 		var Component = React.createClass({
-			render: function(){ return (<div className="myclass"></div>); }
+			render: function(){ return (<div className="myclass"><div id="myid"></div></div>); }
 		});
 
 		var doc = TestUtils.renderIntoDocument(<Component />);
 		
-		var result = TestUtils.findOne(doc, ".myclass");
+		var classResult = TestUtils.findOne(doc, ".myclass");
+		var idResult = TestUtils.findOne(doc, "#myid");
 
-		expect(React.findDOMNode(result).className).toBe("myclass");
+		expect(React.findDOMNode(classResult).className).toBe("myclass");
+		expect(React.findDOMNode(idResult).id).toBe("myid");
+	});
+
+	it("it should throw when findOne finds more than one", function(){
+		var Component = React.createClass({
+			render: function(){ return (<div>
+											<span className="myclass"></span>
+											<span className="myclass"></span>
+										</div>); }
+		});
+
+		var doc = TestUtils.renderIntoDocument(<Component />);
+		
+		var findAction = function(){
+			TestUtils.findOne(doc, ".myclass");
+		};
+
+		expect(findAction).toThrow();
+	});
+
+	it("it should throw when findOne does not find anything", function(){
+		var Component = React.createClass({
+			render: function(){ return (<div></div>); }
+		});
+
+		var doc = TestUtils.renderIntoDocument(<Component />);
+		
+		var findAction = function(){
+			TestUtils.findOne(doc, ".myclass");
+		};
+
+		expect(findAction).toThrow();
 	});
 
 	it("it should throw an error when a component by its id could not be found", function(){

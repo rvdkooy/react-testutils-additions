@@ -44,8 +44,11 @@ function find(root, selector){
 
 RTA.findOne = function(root, selector){
 	var result = this.find(root, selector);
-
-	if(result && (result.length && result.length !== 1) ){
+	
+	if(!result){
+		throw new Error("find one failed, found: 0");
+	}
+	else if(result.length !== undefined && result.length !== 1){
 		throw new Error("find one failed, found: " + result.length);
 	}
 	
