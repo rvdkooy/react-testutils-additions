@@ -1,6 +1,6 @@
 {
   "name": "react-testutils-additions",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "description": "A module that will extend the default react testutils with extra helpers that will make life easier when testing your react components.",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
   ],
   "author": "Ronald van der Kooij",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rvdkooy/react-testutils-additions"
+  },
   "devDependencies": {
     "browserify": "^10.2.3",
     "es5-shim": "^4.1.0",
