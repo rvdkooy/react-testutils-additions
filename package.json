@@ -32,12 +32,5 @@
   },
   "peerDependencies": {
     "react": "0.13.x"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify"
-      ]
-    ]
   }
 }
