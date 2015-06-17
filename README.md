@@ -24,16 +24,16 @@ var testUtilsAdditions = require("react-testutils-additions");
 
 var component = testUtilsAdditions.renderIntoDocument(<Component />);
 
-// If you want to find component based their tag:
+// If you want to find a component based their tag:
 testUtilsAdditions.find(component, "div");
 
-// If you want to find component by their classname:
+// If you want to find a component by their classname:
 testUtilsAdditions.find(component, ".myclass");
 
 // If you want to find a component by it's id:
 testUtilsAdditions.find(component, "#myid");
 
-// You can even combine the selectors as it is done in regular CSS
+// You can even combine the selectors, just like you do with CSS
 testUtilsAdditions.find(component, "#myid div .myclassname");
 
 // If you want to find one component by its classname:
