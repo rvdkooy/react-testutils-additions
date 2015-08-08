@@ -47,6 +47,7 @@ describe("react-testutils-additions tests", function(){
 			var result = TestUtils.findRenderedDOMComponentWithId(RenderedComponent, "findme");
 
 			expect(result).toBeDefined();
+			expect(React.findDOMNode(result).id).toBe("findme");
 		});
 
 		it("it should be able to scry for components by their attributes values", function(){
@@ -59,7 +60,21 @@ describe("react-testutils-additions tests", function(){
 			var result = TestUtils.scryRenderedDOMComponentsWithAttributeValue(RenderedComponent, "role", "somevalue");
 
 			expect(result.length).toBe(1);
-		})
+			expect(React.findDOMNode(result[0]).getAttribute("role")).toBe("somevalue");
+		});
+
+		it("it should be able to find a component by its attribute value", function(){
+			var Component = React.createClass({
+				render: function(){ return (<div role="somevalue"></div>); }
+			});
+
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+
+			var result = TestUtils.findRenderedDOMComponentWithAttributeValue(RenderedComponent, "role", "somevalue");
+
+			expect(result).toBeDefined();
+			expect(React.findDOMNode(result).getAttribute("role")).toBe("somevalue");
+		});
 	});
 
 	it("it should be able to find components with a class selector", function(){
