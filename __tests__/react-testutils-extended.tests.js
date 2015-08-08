@@ -29,8 +29,8 @@ describe("react-testutils-additions tests", function(){
 				render: function(){ return (<div></div>); }
 			});
 
-			var doc = TestUtils.renderIntoDocument(<Component />);
-			TestUtils.unMountFromDocument(doc);
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+			TestUtils.unMountFromDocument(RenderedComponent);
 
 			expect(wasUnmounted).toBe(true);
 		});
@@ -43,8 +43,8 @@ describe("react-testutils-additions tests", function(){
 				render: function(){ return (<div id="findme"></div>); }
 			});
 
-			var doc = TestUtils.renderIntoDocument(<Component />);
-			var result = TestUtils.findRenderedDOMComponentWithId(doc, "findme");
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+			var result = TestUtils.findRenderedDOMComponentWithId(RenderedComponent, "findme");
 
 			expect(result).toBeDefined();
 		});
@@ -54,9 +54,9 @@ describe("react-testutils-additions tests", function(){
 				render: function(){ return (<div role="somevalue"></div>); }
 			});
 
-			var doc = TestUtils.renderIntoDocument(<Component />);
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-			var result = TestUtils.scryRenderedDOMComponentsWithAttributeValue(doc, "role", "somevalue");
+			var result = TestUtils.scryRenderedDOMComponentsWithAttributeValue(RenderedComponent, "role", "somevalue");
 
 			expect(result.length).toBe(1);
 		})
@@ -67,9 +67,9 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ return (<div className="myclass"></div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, ".myclass");
+		var result = TestUtils.find(RenderedComponent, ".myclass");
 
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).className).toBe("myclass");
@@ -80,9 +80,9 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ return (<div id="myid"></div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "#myid");
+		var result = TestUtils.find(RenderedComponent, "#myid");
 
 		expect(result).toBeDefined();
 		expect(React.findDOMNode(result).id).toBe("myid");
@@ -93,9 +93,9 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ return (<div><span>1</span><span>2</span></div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "span");
+		var result = TestUtils.find(RenderedComponent, "span");
 
 		expect(result.length).toBe(2);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("1");
@@ -119,9 +119,9 @@ describe("react-testutils-additions tests", function(){
 			}
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "#myid .active button");
+		var result = TestUtils.find(RenderedComponent, "#myid .active button");
 
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
@@ -142,9 +142,9 @@ describe("react-testutils-additions tests", function(){
 			}
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "#myid article .mytext");
+		var result = TestUtils.find(RenderedComponent, "#myid article .mytext");
 
 		expect(result.length).toBe(2);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum 1");
@@ -161,9 +161,9 @@ describe("react-testutils-additions tests", function(){
 			}
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "#myid span");
+		var result = TestUtils.find(RenderedComponent, "#myid span");
 
 		expect(result.length).toBe(0);
 	});
@@ -173,10 +173,10 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ return (<div className="myclass"><div id="myid"></div></div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var classResult = TestUtils.findOne(doc, ".myclass");
-		var idResult = TestUtils.findOne(doc, "#myid");
+		var classResult = TestUtils.findOne(RenderedComponent, ".myclass");
+		var idResult = TestUtils.findOne(RenderedComponent, "#myid");
 
 		expect(React.findDOMNode(classResult).className).toBe("myclass");
 		expect(React.findDOMNode(idResult).id).toBe("myid");
@@ -190,10 +190,10 @@ describe("react-testutils-additions tests", function(){
 										</div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
 		var findAction = function(){
-			TestUtils.findOne(doc, ".myclass");
+			TestUtils.findOne(RenderedComponent, ".myclass");
 		};
 
 		expect(findAction).toThrow();
@@ -204,10 +204,10 @@ describe("react-testutils-additions tests", function(){
 			render: function(){ return (<div></div>); }
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
 		var findAction = function(){
-			TestUtils.findOne(doc, ".myclass");
+			TestUtils.findOne(RenderedComponent, ".myclass");
 		};
 
 		expect(findAction).toThrow();
@@ -223,10 +223,10 @@ describe("react-testutils-additions tests", function(){
 			}
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
 		var findAction = function(){
-			TestUtils.find(doc, "#myid #myseconddivwithtypo")
+			TestUtils.find(RenderedComponent, "#myid #myseconddivwithtypo")
 		};
 
 		expect(findAction).toThrow();
@@ -249,9 +249,9 @@ describe("react-testutils-additions tests", function(){
 			}
 		});
 
-		var doc = TestUtils.renderIntoDocument(<Component />);
+		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(doc, "#myid .item.active button");
+		var result = TestUtils.find(RenderedComponent, "#myid .item.active button");
 
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
