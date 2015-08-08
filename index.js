@@ -65,6 +65,14 @@ RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propV
                 inst.props[propName] === propValue;});
 };
 
+RTA.findRenderedDOMComponentWithAttributeValue = function(root, propName, propValue) {
+	var all = this.scryRenderedDOMComponentsWithAttributeValue(root, propName, propValue);
+  	if (all.length !== 1) {
+    		throw new Error('Did not find exactly one match for attribute ' + propName + ' with value ' + propValue);
+  	}
+  	return all[0];
+};
+
 RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     var all = this.scryRenderedDOMComponentsWithAttributeValue(root, "id", propValue);
     if (all.length !== 1) {
