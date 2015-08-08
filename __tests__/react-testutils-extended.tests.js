@@ -271,4 +271,30 @@ describe("react-testutils-additions tests", function(){
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
 	});
+
+	describe("Prop helpers", function(){
+
+		var propUpdated = jasmine.createSpy(), updatedProps = {};
+
+		it("it should be able to update the props of a component", function(){
+			var Component = React.createClass({
+				getDefaultProps: function () {
+					return { foo: "foo", bar: "bar" }
+				},
+				componentWillReceiveProps: function(nextProps) {
+					updatedProps = nextProps;
+					propUpdated();
+				},
+				render: function(){ return (<div id="findme"></div>); }
+			});
+
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+			
+			RenderedComponent.updateProps({ foo: "updatedfoo" });
+
+			expect(propUpdated).toHaveBeenCalled();
+			expect(updatedProps.foo).toBe("updatedfoo");
+			expect(updatedProps.bar).toBe("bar");
+		});
+	});
 });

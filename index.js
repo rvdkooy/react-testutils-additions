@@ -3,6 +3,28 @@ var React = require("react/addons");
 var ReactTestUtils = React.addons.TestUtils;
 var utils = require('./utils');
 var RTA = ReactTestUtils;
+var origninalRenderIntoDocument = RTA.renderIntoDocument;
+var objectAssign = require('object-assign');
+
+RTA.renderIntoDocument = function(instance) {
+    
+    var TestContainer = React.createClass({
+        updateProps: function(props) {
+            this.copiedProps = objectAssign(this.copiedProps, props);
+            this.forceUpdate();
+        },
+        componentWillMount: function() {
+            this.copiedProps = instance.props;
+        },
+        render: function() {
+            var clonedInstance = React.cloneElement(instance, this.copiedProps);
+
+            return React.createElement('div', { id: "testcontainer" }, clonedInstance);
+        }
+    });
+
+    return origninalRenderIntoDocument(React.createElement(TestContainer));
+};
 
 RTA.find = function(root, selector){
     var children = selector.split(" ");
