@@ -5,84 +5,87 @@ var ReactTestUtils = React.addons.TestUtils;
 var RTA = ReactTestUtils;
 
 RTA.find = function(root, selector){
-	var children = selector.split(" ");
-	var lastFound = null;
+    var children = selector.split(" ");
+    var lastFound = null;
 
-	for (var i = 0; i < children.length; i++) {
+    for (var i = 0; i < children.length; i++) {
 
-		if(root.length > 0){
-			lastFound = [];
-			for (var j = 0; j < root.length; j++) {
-				lastFound = lastFound.concat(find(root[j], children[i]));
-			}
-		}
-		else{
-			lastFound = find(root, children[i]);
-		}
-		root = lastFound;
-	}
+        if(root.length > 0){
+            lastFound = [];
+            for (var j = 0; j < root.length; j++) {
+                lastFound = lastFound.concat(find(root[j], children[i]));
+            }
+        }
+        else {
+            lastFound = find(root, children[i]);
+        }
+        
+        root = lastFound;
+    }
 
-	return lastFound;
+    return lastFound;
 };
 
 function find(root, selector){
 
-	if(selector.indexOf(".") === 0){ // class selector
-		var classNames = selector.split(".").join(" "); // handle multiple classnames
-		classNames = classNames.substring(1, selector.length); // remove leading space
-		return ReactTestUtils.scryRenderedDOMComponentsWithClass(root, classNames);
-	}
-	else if(selector.indexOf("#") === 0 ){ // Id selector
-		var id = selector.substring(1, selector.length); // remove the #
-		return ReactTestUtils.findRenderedDOMComponentWithId(root, id);
-	}
-	else if(selector.length){ // tag selector
-		return ReactTestUtils.scryRenderedDOMComponentsWithTag(root, selector);
-	}
+    if(selector.indexOf(".") === 0){ // class selector
+        var classNames = selector.split(".").join(" "); // handle multiple classnames
+        classNames = classNames.substring(1, selector.length); // remove leading space
+        return ReactTestUtils.scryRenderedDOMComponentsWithClass(root, classNames);
+    }
+    else if (selector.indexOf("#") === 0 ) { // Id selector
+        var id = selector.substring(1, selector.length); // remove the #
+        return ReactTestUtils.findRenderedDOMComponentWithId(root, id);
+    }
+    else if(selector.length) { // tag selector
+        return ReactTestUtils.scryRenderedDOMComponentsWithTag(root, selector);
+    }
 }
 
 RTA.findOne = function(root, selector){
-	var result = this.find(root, selector);
+    var result = this.find(root, selector);
 
-	if(!result){
-		throw new Error("find one failed, found: 0");
-	}
-	else if(result.length !== undefined && result.length !== 1){
-		throw new Error("find one failed, found: " + result.length);
-	}
+    if(!result){
+        throw new Error("find one failed, found: 0");
+    } else if(result.length !== undefined && result.length !== 1){
+        throw new Error("find one failed, found: " + result.length);
+    }
 
-	if(result.length){
-		return	result[0];
-	}
+    if(result.length){
+        return	result[0];
+    }
 
-	return result;
+    return result;
 };
 
 RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
     return ReactTestUtils.findAllInRenderedTree(root, function(inst) {
         return ReactTestUtils.isDOMComponent(inst) &&
-                inst.props.hasOwnProperty(propName) &&
-                inst.props[propName] === propValue;});
+        inst.props.hasOwnProperty(propName) &&
+        inst.props[propName] === propValue;});
 };
 
 RTA.findRenderedDOMComponentWithAttributeValue = function(root, propName, propValue) {
-	var all = this.scryRenderedDOMComponentsWithAttributeValue(root, propName, propValue);
-  	if (all.length !== 1) {
-    		throw new Error('Did not find exactly one match for attribute ' + propName + ' with value ' + propValue);
-  	}
-  	return all[0];
+    var all = this.scryRenderedDOMComponentsWithAttributeValue(root, propName, propValue);
+    if (all.length !== 1) {
+        throw new Error('Did not find exactly one match for attribute ' + propName + ' with value ' + propValue);
+    }
+    
+    return all[0];
 };
 
 RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     var all = this.scryRenderedDOMComponentsWithAttributeValue(root, "id", propValue);
+    
     if (all.length !== 1) {
         throw new Error('Did not find exactly one match for id:' + propValue);
     }
+    
     return all[0];
 };
 
 RTA.unMountFromDocument = function(root){
-	React.unmountComponentAtNode(React.findDOMNode(root).parentNode);
+    React.unmountComponentAtNode(React.findDOMNode(root).parentNode);
 };
 
 module.exports = RTA;
