@@ -5,20 +5,19 @@ var ReactTestUtils = React.addons.TestUtils;
 var RTA = ReactTestUtils;
 
 RTA.find = function(root, selector){
-	var segments = selector.split(" ");
-
+	var children = selector.split(" ");
 	var lastFound = null;
-	
-	for (var i = 0; i < segments.length; i++) {
+
+	for (var i = 0; i < children.length; i++) {
 
 		if(root.length > 0){
 			lastFound = [];
 			for (var j = 0; j < root.length; j++) {
-				lastFound = lastFound.concat(find(root[j], segments[i]));
+				lastFound = lastFound.concat(find(root[j], children[i]));
 			}
 		}
 		else{
-			lastFound = find(root, segments[i]);
+			lastFound = find(root, children[i]);
 		}
 		root = lastFound;
 	}
@@ -27,10 +26,11 @@ RTA.find = function(root, selector){
 };
 
 function find(root, selector){
-	
+
 	if(selector.indexOf(".") === 0){ // class selector
-		var className = selector.substring(1, selector.length); // remove the .
-		return ReactTestUtils.scryRenderedDOMComponentsWithClass(root, className);
+		var classNames = selector.split(".").join(" "); // handle multiple classnames
+		classNames = classNames.substring(1, selector.length); // remove leading space
+		return ReactTestUtils.scryRenderedDOMComponentsWithClass(root, classNames);
 	}
 	else if(selector.indexOf("#") === 0 ){ // Id selector
 		var id = selector.substring(1, selector.length); // remove the #
@@ -43,18 +43,18 @@ function find(root, selector){
 
 RTA.findOne = function(root, selector){
 	var result = this.find(root, selector);
-	
+
 	if(!result){
 		throw new Error("find one failed, found: 0");
 	}
 	else if(result.length !== undefined && result.length !== 1){
 		throw new Error("find one failed, found: " + result.length);
 	}
-	
+
 	if(result.length){
 		return	result[0];
 	}
-	
+
 	return result;
 };
 
