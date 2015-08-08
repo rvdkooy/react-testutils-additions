@@ -247,16 +247,16 @@ describe("react-testutils-additions tests", function(){
 		expect(findAction).toThrow();
 	});
 
-	it("should be able to find components with multiple classes on the same element", function() {
+	it("should be able to find components with multiple selectors on the same element", function() {
 		var Component = React.createClass({
 			render: function(){
 				return (
 					<div id="myid">
 						<ul>
-							<li className="item active">
+							<li id="first" className="item active">
 								<button>active</button>
 							</li>
-							<li className="item not-active">
+							<li id="second" className="item not-active">
 								<button>notactive</button>
 							</li>
 						</ul>
@@ -266,7 +266,7 @@ describe("react-testutils-additions tests", function(){
 
 		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-		var result = TestUtils.find(RenderedComponent, "#myid .item.active button");
+		var result = TestUtils.find(RenderedComponent, "#myid li#first.item.active button");
 
 		expect(result.length).toBe(1);
 		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
