@@ -22,7 +22,7 @@
   "devDependencies": {
     "browserify": "^10.2.3",
     "es5-shim": "^4.1.0",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.0",
     "gulp-jshint": "^1.9.4",
     "gulp-karma": "0.0.4",
     "gulp-react": "^3.0.1",
