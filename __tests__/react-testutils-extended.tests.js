@@ -244,7 +244,7 @@ describe("react-testutils-additions tests", function(){
 			TestUtils.find(RenderedComponent, "#myid #myseconddivwithtypo")
 		};
 
-		expect(findAction).toThrow();
+		expect(findAction).toThrowError("Did not find exactly one match for id:myseconddivwithtypo");
 	});
 
 	it("should be able to find components with multiple selectors on the same element", function() {
@@ -276,7 +276,7 @@ describe("react-testutils-additions tests", function(){
 
 		var propUpdated = jasmine.createSpy(), updatedProps = {};
 
-		it("it should be able to update the props of a component", function(){
+		it("it should be able to update the props by using the test container wrapper", function(){
 			var Component = React.createClass({
 				getDefaultProps: function () {
 					return { foo: "foo", bar: "bar" }
@@ -288,9 +288,9 @@ describe("react-testutils-additions tests", function(){
 				render: function(){ return (<div id="findme"></div>); }
 			});
 
-			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+			var WrappedComponent = TestUtils.renderIntoTestContainer(<Component />);
 			
-			RenderedComponent.updateProps({ foo: "updatedfoo" });
+			WrappedComponent.updateProps({ foo: "updatedfoo" });
 
 			expect(propUpdated).toHaveBeenCalled();
 			expect(updatedProps.foo).toBe("updatedfoo");
