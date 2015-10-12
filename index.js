@@ -1,71 +1,18 @@
 var React = require('react');
 var ReactTestUtils = require("react-addons-test-utils");
-var ReactDOM = require('react-dom')
-var utils = require('./utils');
+var ReactDOM = require('react-dom');
 var RTA = ReactTestUtils;
+var sizzle = require("sizzle");
 var objectAssign = require('object-assign');
 var testContainerId = "react-test-additions-testcontainer";
 
 RTA.find = function(root, selector){
-    var children = selector.split(" ");
-    var lastFound = null;
-
-    for (var i = 0; i < children.length; i++) {
-
-        if(root.length > 0){
-            lastFound = [];
-            for (var j = 0; j < root.length; j++) {
-                lastFound = lastFound.concat(find(root[j], children[i]));
-            }
-        }
-        else {
-            lastFound = find(root, children[i]);
-        }
-        
-        root = lastFound;
-    }
-
-    return lastFound;
+    var domInstance = ReactDOM.findDOMNode(root);
+    // react always renders the root component in a parent DIV, 
+    // so using the parentNode should not be a problem.
+    var result = sizzle(selector, domInstance.parentNode);
+    return result;
 };
-
-function findBasedOnCombinedSelectors(root, combinedSelectors, origSelector) {
-    var foundElements = [];
-
-    combinedSelectors.forEach(function(cs) {
-        foundElements = foundElements.concat(find(root, cs));
-    });
-    
-    for (var i = 0; i < foundElements.length; i++) {
-        if(utils.elementContainsAllSelectors(foundElements[i], combinedSelectors)) {
-            return foundElements[i];
-        }
-    }
-    
-    throw new Error("Did not find an element based on the selector: " + origSelector);
-}
-
-function find(root, selector){
-
-    var combinedSelectors = utils.getCombinedSelectors(selector);
-    
-    if(combinedSelectors.length > 1) {
-        return findBasedOnCombinedSelectors(root, combinedSelectors, selector);
-    }
-
-    if(selector.indexOf(".") === 0){ // class selector
-        var className = selector.substring(1, selector.length);
-        var element = ReactTestUtils.scryRenderedDOMComponentsWithClass(root, className);
-        console.log(element);
-        return element;
-    }
-    else if (selector.indexOf("#") === 0 ) { // Id selector
-        var id = selector.substring(1, selector.length);
-        return ReactTestUtils.findRenderedDOMComponentWithId(root, id);
-    }
-    else if(selector.length) { // tag selector
-        return ReactTestUtils.scryRenderedDOMComponentsWithTag(root, selector);
-    }
-}
 
 RTA.findOne = function(root, selector){
     var result = this.find(root, selector);
@@ -85,7 +32,7 @@ RTA.findOne = function(root, selector){
 
 RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
     return ReactTestUtils.findAllInRenderedTree(root, function(inst) {
-        return ReactTestUtils.isDOMComponent(inst) && ReactDOM.findDOMNode(inst).getAttribute(propName) === propValue
+        return ReactTestUtils.isDOMComponent(inst) && ReactDOM.findDOMNode(inst).getAttribute(propName) === propValue;
     });
 };
 
@@ -118,8 +65,15 @@ RTA.renderIntoTestContainer = function(instance) {
             this.copiedProps = objectAssign(this.copiedProps, props);
             this.forceUpdate();
         },
+        copyProps: function(props) {
+            var newProps = {};
+            for(var prop in props) {
+                newProps[prop] = props[prop];
+            }
+            return newProps;
+        },
         componentWillMount: function() {
-            this.copiedProps = instance.props;
+            this.copiedProps = this.copyProps(instance.props);
         },
         render: function() {
             var clonedElement = React.cloneElement(instance, this.copiedProps);

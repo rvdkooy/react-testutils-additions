@@ -42,6 +42,7 @@
     "react-addons-test-utils": "0.14.x"
   },
   "dependencies": {
-    "object-assign": "~3.0.0"
+    "object-assign": "~3.0.0",
+    "sizzle": "^2.2.0"
   }
 }
