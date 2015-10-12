@@ -1,4 +1,4 @@
-var React = require('react');
+var ReactDOM = require('react-dom');
 
 // this function will return all the segments in a CSS "AND" operator
 // example: div#id.myclassname
@@ -37,7 +37,7 @@ module.exports.getCombinedSelectors = function(selector) {
 
 // this function will test if an html element contains all css selectors
 module.exports.elementContainsAllSelectors = function(element, selectors) {
-	var domElement = React.findDOMNode(element);
+	var domElement = ReactDOM.findDOMNode(element);
 
     for (var i = 0; i < selectors.length; i++) {
         var selector = selectors[i];

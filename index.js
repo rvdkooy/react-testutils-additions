@@ -1,6 +1,6 @@
-"use strict";
-var React = require("react/addons");
-var ReactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactTestUtils = require("react-addons-test-utils");
+var ReactDOM = require('react-dom')
 var utils = require('./utils');
 var RTA = ReactTestUtils;
 var objectAssign = require('object-assign');
@@ -54,7 +54,9 @@ function find(root, selector){
 
     if(selector.indexOf(".") === 0){ // class selector
         var className = selector.substring(1, selector.length);
-        return ReactTestUtils.scryRenderedDOMComponentsWithClass(root, className);
+        var element = ReactTestUtils.scryRenderedDOMComponentsWithClass(root, className);
+        console.log(element);
+        return element;
     }
     else if (selector.indexOf("#") === 0 ) { // Id selector
         var id = selector.substring(1, selector.length);
@@ -83,9 +85,8 @@ RTA.findOne = function(root, selector){
 
 RTA.scryRenderedDOMComponentsWithAttributeValue = function(root, propName, propValue) {
     return ReactTestUtils.findAllInRenderedTree(root, function(inst) {
-        return ReactTestUtils.isDOMComponent(inst) &&
-        inst.props.hasOwnProperty(propName) &&
-        inst.props[propName] === propValue;});
+        return ReactTestUtils.isDOMComponent(inst) && ReactDOM.findDOMNode(inst).getAttribute(propName) === propValue
+    });
 };
 
 RTA.findRenderedDOMComponentWithAttributeValue = function(root, propName, propValue) {
@@ -108,7 +109,7 @@ RTA.findRenderedDOMComponentWithId = function(root, propValue) {
 };
 
 RTA.unMountFromDocument = function(root){
-    React.unmountComponentAtNode(React.findDOMNode(root).parentNode);
+    ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(root).parentNode);
 };
 
 RTA.renderIntoTestContainer = function(instance) {

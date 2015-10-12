@@ -1,3 +1,4 @@
+var ReactDOM = require('react-dom');
 var React = require('react');
 var TestUtils = require('../index.js');
 
@@ -47,7 +48,7 @@ describe("react-testutils-additions tests", function(){
 			var result = TestUtils.findRenderedDOMComponentWithId(RenderedComponent, "findme");
 
 			expect(result).toBeDefined();
-			expect(React.findDOMNode(result).id).toBe("findme");
+			expect(ReactDOM.findDOMNode(result).id).toBe("findme");
 		});
 
 		it("it should be able to scry for components by their attributes values", function(){
@@ -60,7 +61,7 @@ describe("react-testutils-additions tests", function(){
 			var result = TestUtils.scryRenderedDOMComponentsWithAttributeValue(RenderedComponent, "role", "somevalue");
 
 			expect(result.length).toBe(1);
-			expect(React.findDOMNode(result[0]).getAttribute("role")).toBe("somevalue");
+			expect(ReactDOM.findDOMNode(result[0]).getAttribute("role")).toBe("somevalue");
 		});
 
 		it("it should be able to find a component by its attribute value", function(){
@@ -73,7 +74,7 @@ describe("react-testutils-additions tests", function(){
 			var result = TestUtils.findRenderedDOMComponentWithAttributeValue(RenderedComponent, "role", "somevalue");
 
 			expect(result).toBeDefined();
-			expect(React.findDOMNode(result).getAttribute("role")).toBe("somevalue");
+			expect(ReactDOM.findDOMNode(result).getAttribute("role")).toBe("somevalue");
 		});
 	});
 
@@ -87,10 +88,10 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(RenderedComponent, ".myclass");
 
 		expect(result.length).toBe(1);
-		expect(React.findDOMNode(result[0]).className).toBe("myclass");
+		expect(ReactDOM.findDOMNode(result[0]).className).toBe("myclass");
 	});
 
-	it("it should be able to find a component with an id selector", function(){
+	iit("it should be able to find a component with an id selector", function(){
 		var Component = React.createClass({
 			render: function(){ return (<div id="myid"></div>); }
 		});
@@ -98,9 +99,9 @@ describe("react-testutils-additions tests", function(){
 		var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
 		var result = TestUtils.find(RenderedComponent, "#myid");
-
+        console.log(result);
 		expect(result).toBeDefined();
-		expect(React.findDOMNode(result).id).toBe("myid");
+		expect(ReactDOM.findDOMNode(result).id).toBe("myid");
 	});
 
 	it("it should be able to find components with a tag selector", function(){
@@ -113,8 +114,8 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(RenderedComponent, "span");
 
 		expect(result.length).toBe(2);
-		expect(React.findDOMNode(result[0]).innerHTML).toBe("1");
-		expect(React.findDOMNode(result[1]).innerHTML).toBe("2");
+		expect(ReactDOM.findDOMNode(result[0]).innerHTML).toBe("1");
+		expect(ReactDOM.findDOMNode(result[1]).innerHTML).toBe("2");
 	});
 
 	it("it should be able to find nested components with a selector", function(){
@@ -139,7 +140,7 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(RenderedComponent, "#myid .active button");
 
 		expect(result.length).toBe(1);
-		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
+		expect(ReactDOM.findDOMNode(result[0]).innerHTML).toBe("active");
 	});
 
 	it("it should be able to find multiple nested components with a selector", function(){
@@ -162,8 +163,8 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(RenderedComponent, "#myid article .mytext");
 
 		expect(result.length).toBe(2);
-		expect(React.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum 1");
-		expect(React.findDOMNode(result[1]).innerHTML).toBe("Lorem ipsum 2");
+		expect(ReactDOM.findDOMNode(result[0]).innerHTML).toBe("Lorem ipsum 1");
+		expect(ReactDOM.findDOMNode(result[1]).innerHTML).toBe("Lorem ipsum 2");
 	});
 
 	it("it should return an empty array when a component by tag could not be found", function(){
@@ -193,8 +194,8 @@ describe("react-testutils-additions tests", function(){
 		var classResult = TestUtils.findOne(RenderedComponent, ".myclass");
 		var idResult = TestUtils.findOne(RenderedComponent, "#myid");
 
-		expect(React.findDOMNode(classResult).className).toBe("myclass");
-		expect(React.findDOMNode(idResult).id).toBe("myid");
+		expect(ReactDOM.findDOMNode(classResult).className).toBe("myclass");
+		expect(ReactDOM.findDOMNode(idResult).id).toBe("myid");
 	});
 
 	it("it should throw when findOne finds more than one", function(){
@@ -269,7 +270,7 @@ describe("react-testutils-additions tests", function(){
 		var result = TestUtils.find(RenderedComponent, "#myid li#first.item.active button");
 
 		expect(result.length).toBe(1);
-		expect(React.findDOMNode(result[0]).innerHTML).toBe("active");
+		expect(ReactDOM.findDOMNode(result[0]).innerHTML).toBe("active");
 	});
 
 	describe("Prop helpers", function(){
