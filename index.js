@@ -55,7 +55,12 @@ RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     return all[0];
 };
 
-RTA.unMountFromDocument = function(root){
+RTA.unMountFromDocument = function(root) {
+    console.warn("unMountFromDocument is deprecated, use unmountFromDocument instead!");
+    RTA.unmountFromDocument(root);
+};
+
+RTA.unmountFromDocument = function(root) {
     ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(root).parentNode);
 };
 

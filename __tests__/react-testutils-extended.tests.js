@@ -35,6 +35,20 @@ describe("react-testutils-additions tests", function(){
 
 			expect(wasUnmounted).toBe(true);
 		});
+
+		it("it should unmount a component when calling the unmountFromDocument func", function(){
+			var wasUnmounted = false;
+
+			var Component = React.createClass({
+				componentWillUnmount: function(){ wasUnmounted = true; },
+				render: function(){ return (<div></div>); }
+			});
+
+			var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+			TestUtils.unmountFromDocument(RenderedComponent);
+
+			expect(wasUnmounted).toBe(true);
+		});
 	});
 
 	describe("scry and find helpers", function(){

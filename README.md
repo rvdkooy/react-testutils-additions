@@ -92,13 +92,13 @@ wrappedComponent.updateProps({ myProperty: "new value" })
 ```
 
 
-##### unMountFromDocument
+##### unmountFromDocument
 React TestUtils comes with a helper to render a component into a document (it actually does not render it into a document, but ok...).
-If you want to clean up your tests, use the unMountFromDocument helper:
+If you want to clean up your tests, use the unmountFromDocument helper:
 
 ``` Javascript
 var testUtilsAdditions = require("react-testutils-additions");
 
 var component = testUtilsAdditions.renderIntoDocument(<Component />);
-testUtilsAdditions.unMountFromDocument(component); // this will remove the component, and call the componentWillUnmount function of your component.
+testUtilsAdditions.unmountFromDocument(component); // this will remove the component, and call the componentWillUnmount function of your component.
 ```
