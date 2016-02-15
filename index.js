@@ -18,9 +18,9 @@ RTA.findOne = function(root, selector){
     var result = this.find(root, selector);
 
     if(!result){
-        throw new Error("find one failed, found: 0");
+        throw new Error("find one failed for '" + selector + "' (found: 0" + ")");
     } else if(result.length !== undefined && result.length !== 1){
-        throw new Error("find one failed, found: " + result.length);
+        throw new Error("find one failed for '" + selector + "' (found: " + result.length + ")");
     }
 
     if(result.length){
