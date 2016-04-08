@@ -22,20 +22,6 @@ describe("react-testutils-additions tests", function(){
             // and more...
         });
 
-        it("it should unmount a component when calling the unMountFromDocument func", function(){
-            var wasUnmounted = false;
-
-            var Component = React.createClass({
-                componentWillUnmount: function(){ wasUnmounted = true; },
-                render: function(){ return (<div></div>); }
-            });
-
-            var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
-            TestUtils.unMountFromDocument(RenderedComponent);
-
-            expect(wasUnmounted).toBe(true);
-        });
-
         it("it should unmount a component when calling the unmountFromDocument func", function(){
             var wasUnmounted = false;
 

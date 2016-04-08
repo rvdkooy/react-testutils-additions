@@ -31,15 +31,15 @@
     "karma-chrome-launcher": "~0.1.2",
     "karma-jasmine": "^0.2.2",
     "karma-phantomjs-launcher": "~0.1.2",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0",
+    "react-addons-test-utils": "^15.0",
+    "react-dom": "^15.0",
     "reactify": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "0.14.x",
-    "react-dom": "0.14.x",
-    "react-addons-test-utils": "0.14.x"
+    "react": "15.x",
+    "react-dom": "15.x",
+    "react-addons-test-utils": "15.x"
   },
   "dependencies": {
     "object-assign": "~3.0.0",
