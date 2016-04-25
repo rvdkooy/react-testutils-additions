@@ -6,6 +6,10 @@ var sizzle = require("sizzle");
 var objectAssign = require('object-assign');
 var testContainerId = "react-test-additions-testcontainer";
 
+RTA.findDOMNode = function(root){
+    return ReactDOM.findDOMNode(root);
+};
+
 RTA.find = function(root, selector){
     var domInstance = ReactDOM.findDOMNode(root);
     // react always renders the root component in a parent DIV, 
@@ -24,7 +28,7 @@ RTA.findOne = function(root, selector){
     }
 
     if(result.length){
-        return	result[0];
+        return result[0];
     }
 
     return result;

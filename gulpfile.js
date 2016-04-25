@@ -12,13 +12,12 @@ gulp.task('jshint', function () {
 
 gulp.task('watches', function(){
     gulp.watch([ 
-		basePath + '*.js', 
-		basePath + '__tests__/*.js'
-	], ['jshint', 'tests']);
+        basePath + '*.js', 
+        basePath + '__tests__/*.js'
+    ], ['jshint', 'tests']);
 });
 
 gulp.task('tests', function () {
-    
     return gulp.src(['./fake/*.js'])
         .pipe(karma({
             configFile: 'karma.conf.js',

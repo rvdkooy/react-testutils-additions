@@ -78,6 +78,19 @@ describe("react-testutils-additions tests", function(){
         });
     });
 
+    it("it should be able to find a dom node", function(){
+        var Component = React.createClass({
+            render: function(){ return (<div className="myclass"></div>); }
+        });
+
+        var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
+
+        var result = TestUtils.findDOMNode(RenderedComponent);
+
+        expect(result).toBeDefined();
+        expect(result.getAttribute("class")).toBe("myclass");
+    });
+
     it("it should be able to find components with a class selector", function(){
         var Component = React.createClass({
             render: function(){ return (<div className="myclass"></div>); }
