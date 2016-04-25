@@ -1,6 +1,6 @@
 {
   "name": "react-testutils-additions",
-  "version": "15.0.1",
+  "version": "15.1.0",
   "description": "A module that will extend the default react testutils with extra helpers that will make life easier when testing your react components.",
   "main": "index.js",
   "scripts": {
