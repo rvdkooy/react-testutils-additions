@@ -88,4 +88,16 @@ RTA.renderIntoTestContainer = function(instance) {
     return ReactTestUtils.renderIntoDocument(React.createElement(TestContainer));
 };
 
+RTA.wrapIfStateless = function (instance) {
+    if (instance.length === 1 && typeof instance.setState !== 'function') {
+        return React.createClass({
+            render: function() {
+                return React.createElement(instance, this.props);
+            }
+        });
+    }
+
+    return instance;
+}
+
 module.exports = RTA;
