@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactTestUtils = require("react-addons-test-utils");
+var ReactTestUtils = require("react-dom/test-utils");
 var ReactDOM = require('react-dom');
 var RTA = ReactTestUtils;
 var sizzle = require("sizzle");
