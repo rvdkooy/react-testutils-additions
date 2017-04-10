@@ -22,10 +22,6 @@
   "devDependencies": {
     "browserify": "14.3.0",
     "es5-shim": "4.5.9",
-    "gulp": "3.9.1",
-    "gulp-jshint": "2.0.4",
-    "jshint": "2.9.4",
-    "gulp-react": "3.1.0",
     "karma": "1.6.0",
     "karma-browserify": "5.1.1",
     "watchify": "3.9.0",
