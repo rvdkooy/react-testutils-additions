@@ -5,6 +5,7 @@ var RTA = ReactTestUtils;
 var sizzle = require("sizzle");
 var objectAssign = require('object-assign');
 var testContainerId = "react-test-additions-testcontainer";
+var createReactClass = require('create-react-class');
 
 RTA.findDOMNode = function(root){
     return ReactDOM.findDOMNode(root);
@@ -12,7 +13,7 @@ RTA.findDOMNode = function(root){
 
 RTA.find = function(root, selector){
     var domInstance = ReactDOM.findDOMNode(root);
-    // react always renders the root component in a parent DIV, 
+    // react always renders the root component in a parent DIV,
     // so using the parentNode should not be a problem.
     var result = sizzle(selector, domInstance.parentNode);
     return result;
@@ -45,17 +46,17 @@ RTA.findRenderedDOMComponentWithAttributeValue = function(root, propName, propVa
     if (all.length !== 1) {
         throw new Error('Did not find exactly one match for attribute ' + propName + ' with value ' + propValue);
     }
-    
+
     return all[0];
 };
 
 RTA.findRenderedDOMComponentWithId = function(root, propValue) {
     var all = this.scryRenderedDOMComponentsWithAttributeValue(root, "id", propValue);
-    
+
     if (all.length !== 1) {
         throw new Error('Did not find exactly one match for id:' + propValue);
     }
-    
+
     return all[0];
 };
 
@@ -64,7 +65,7 @@ RTA.unmountFromDocument = function(root) {
 };
 
 RTA.renderIntoTestContainer = function(instance) {
-    var TestContainer = React.createClass({
+    var TestContainer = createReactClass({
         updateProps: function(props) {
             this.copiedProps = objectAssign(this.copiedProps, props);
             this.forceUpdate();
@@ -81,10 +82,10 @@ RTA.renderIntoTestContainer = function(instance) {
         },
         render: function() {
             var clonedElement = React.cloneElement(instance, this.copiedProps);
-            return React.createElement('div', { id: testContainerId }, clonedElement); 
+            return React.createElement('div', { id: testContainerId }, clonedElement);
         }
     });
-    
+
     return ReactTestUtils.renderIntoDocument(React.createElement(TestContainer));
 };
 
