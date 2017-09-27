@@ -1,6 +1,7 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
 var TestUtils = require('../index.js');
+var createReactClass = require('create-react-class');
 
 describe("react-testutils-additions tests", function(){
 
@@ -25,7 +26,7 @@ describe("react-testutils-additions tests", function(){
         it("it should unmount a component when calling the unmountFromDocument func", function(){
             var wasUnmounted = false;
 
-            var Component = React.createClass({
+            var Component = createReactClass({
                 componentWillUnmount: function(){ wasUnmounted = true; },
                 render: function(){ return (<div></div>); }
             });
@@ -40,7 +41,7 @@ describe("react-testutils-additions tests", function(){
     describe("scry and find helpers", function(){
 
         it("it should be able to find a component by its id", function(){
-            var Component = React.createClass({
+            var Component = createReactClass({
                 render: function(){ return (<div id="findme"></div>); }
             });
 
@@ -52,7 +53,7 @@ describe("react-testutils-additions tests", function(){
         });
 
         it("it should be able to scry for components by their attributes values", function(){
-            var Component = React.createClass({
+            var Component = createReactClass({
                 render: function(){ return (<div role="somevalue"></div>); }
             });
 
@@ -65,7 +66,7 @@ describe("react-testutils-additions tests", function(){
         });
 
         it("it should be able to find a component by its attribute value", function(){
-            var Component = React.createClass({
+            var Component = createReactClass({
                 render: function(){ return (<div role="somevalue"></div>); }
             });
 
@@ -79,7 +80,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to find a dom node", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div className="myclass"></div>); }
         });
 
@@ -92,7 +93,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to find components with a class selector", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div className="myclass"></div>); }
         });
 
@@ -105,7 +106,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to find a component with an id selector", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div id="myid"></div>); }
         });
 
@@ -116,7 +117,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to find components with a tag selector", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div><span>1</span><span>2</span></div>); }
         });
 
@@ -131,7 +132,7 @@ describe("react-testutils-additions tests", function(){
 
 
     it("it should be able to find nested components with a selector", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){
                 return (
                     <div id="myid">
@@ -156,7 +157,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to find multiple nested components with a selector", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){
                 return (
                     <div id="myid">
@@ -180,7 +181,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should return an empty array when a component by tag could not be found", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){
                 return (
                     <div id="myid">
@@ -197,7 +198,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should be able to findone when there is only one", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div className="myclass"><div id="myid"></div></div>); }
         });
 
@@ -211,7 +212,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should throw when findOne finds more than one", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div>
                                             <span className="myclass"></span>
                                             <span className="myclass"></span>
@@ -228,7 +229,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("it should throw when findOne does not find anything", function(){
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){ return (<div></div>); }
         });
 
@@ -242,7 +243,7 @@ describe("react-testutils-additions tests", function(){
     });
 
     it("should be able to find components with multiple selectors on the same element", function() {
-        var Component = React.createClass({
+        var Component = createReactClass({
             render: function(){
                 return (
                     <div id="myid">
@@ -271,7 +272,7 @@ describe("react-testutils-additions tests", function(){
         var propUpdated = jasmine.createSpy(), updatedProps = {};
 
         it("it should be able to update the props by using the test container wrapper", function(){
-            var Component = React.createClass({
+            var Component = createReactClass({
                 getDefaultProps: function () {
                     return { foo: "foo", bar: "bar" }
                 },
@@ -283,7 +284,7 @@ describe("react-testutils-additions tests", function(){
             });
 
             var WrappedComponent = TestUtils.renderIntoTestContainer(<Component />);
-            
+
             WrappedComponent.updateProps({ foo: "updatedfoo" });
 
             expect(propUpdated).toHaveBeenCalled();

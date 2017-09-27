@@ -1,6 +1,6 @@
 {
   "name": "react-testutils-additions",
-  "version": "15.2.0",
+  "version": "15.3.0",
   "description": "A module that will extend the default react testutils with extra helpers that will make life easier when testing your react components.",
   "main": "index.js",
   "scripts": {
@@ -21,17 +21,18 @@
   },
   "devDependencies": {
     "browserify": "14.3.0",
+    "create-react-class": "^15.6.2",
     "es5-shim": "4.5.9",
+    "jasmine-core": "2.5.2",
     "karma": "1.6.0",
     "karma-browserify": "5.1.1",
-    "watchify": "3.9.0",
     "karma-chrome-launcher": "2.0.0",
-    "jasmine-core": "2.5.2",
     "karma-jasmine": "1.1.0",
     "karma-phantomjs-launcher": "1.0.4",
     "react": "^15.5",
     "react-dom": "^15.5",
-    "reactify": "1.1.1"
+    "reactify": "1.1.1",
+    "watchify": "3.9.0"
   },
   "peerDependencies": {
     "react": ">= 15.5.0 < 16",
