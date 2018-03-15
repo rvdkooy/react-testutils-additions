@@ -19,7 +19,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            {pattern: 'node_modules/es5-shim/es5-shim.js', watched: true, included: true, served: true},
+            {pattern: 'node_modules/babel-polyfill/browser.js', instrument: false}, 
             {pattern: '__tests__/**/*.js', watched: true, included: true, served: true},
         ],
         // list of files to exclude
