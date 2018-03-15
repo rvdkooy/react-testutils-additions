@@ -3,11 +3,11 @@ var React = require('react');
 var TestUtils = require('../index.js');
 var createReactClass = require('create-react-class');
 
-describe("react-testutils-additions tests", function(){
+describe("react-testutils-additions tests", function () {
 
-    describe("default react testutils helpers", function(){
+    describe("default react testutils helpers", function () {
 
-        it("it should expose all the default react testutil props and methods", function(){
+        it("it should expose all the default react testutil props and methods", function () {
 
             expect(TestUtils.renderIntoDocument).toBeDefined();
 
@@ -23,12 +23,12 @@ describe("react-testutils-additions tests", function(){
             // and more...
         });
 
-        it("it should unmount a component when calling the unmountFromDocument func", function(){
+        it("it should unmount a component when calling the unmountFromDocument func", function () {
             var wasUnmounted = false;
 
             var Component = createReactClass({
-                componentWillUnmount: function(){ wasUnmounted = true; },
-                render: function(){ return (<div></div>); }
+                componentWillUnmount: function () { wasUnmounted = true; },
+                render: function () { return (<div></div>); }
             });
 
             var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -38,11 +38,11 @@ describe("react-testutils-additions tests", function(){
         });
     });
 
-    describe("scry and find helpers", function(){
+    describe("scry and find helpers", function () {
 
-        it("it should be able to find a component by its id", function(){
+        it("it should be able to find a component by its id", function () {
             var Component = createReactClass({
-                render: function(){ return (<div id="findme"></div>); }
+                render: function () { return (<div id="findme"></div>); }
             });
 
             var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -52,9 +52,9 @@ describe("react-testutils-additions tests", function(){
             expect(result.id).toBe("findme");
         });
 
-        it("it should be able to scry for components by their attributes values", function(){
+        it("it should be able to scry for components by their attributes values", function () {
             var Component = createReactClass({
-                render: function(){ return (<div role="somevalue"></div>); }
+                render: function () { return (<div role="somevalue"></div>); }
             });
 
             var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -65,9 +65,9 @@ describe("react-testutils-additions tests", function(){
             expect(result[0].getAttribute("role")).toBe("somevalue");
         });
 
-        it("it should be able to find a component by its attribute value", function(){
+        it("it should be able to find a component by its attribute value", function () {
             var Component = createReactClass({
-                render: function(){ return (<div role="somevalue"></div>); }
+                render: function () { return (<div role="somevalue"></div>); }
             });
 
             var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -79,9 +79,9 @@ describe("react-testutils-additions tests", function(){
         });
     });
 
-    it("it should be able to find a dom node", function(){
+    it("it should be able to find a dom node", function () {
         var Component = createReactClass({
-            render: function(){ return (<div className="myclass"></div>); }
+            render: function () { return (<div className="myclass"></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -92,9 +92,9 @@ describe("react-testutils-additions tests", function(){
         expect(result.getAttribute("class")).toBe("myclass");
     });
 
-    it("it should be able to find components with a class selector", function(){
+    it("it should be able to find components with a class selector", function () {
         var Component = createReactClass({
-            render: function(){ return (<div className="myclass"></div>); }
+            render: function () { return (<div className="myclass"></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -105,9 +105,9 @@ describe("react-testutils-additions tests", function(){
         expect(result[0].className).toBe("myclass");
     });
 
-    it("it should be able to find a component with an id selector", function(){
+    it("it should be able to find a component with an id selector", function () {
         var Component = createReactClass({
-            render: function(){ return (<div id="myid"></div>); }
+            render: function () { return (<div id="myid"></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -116,9 +116,9 @@ describe("react-testutils-additions tests", function(){
         expect(result[0].id).toBe("myid");
     });
 
-    it("it should be able to find components with a tag selector", function(){
+    it("it should be able to find components with a tag selector", function () {
         var Component = createReactClass({
-            render: function(){ return (<div><span>1</span><span>2</span></div>); }
+            render: function () { return (<div><span>1</span><span>2</span></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -131,9 +131,9 @@ describe("react-testutils-additions tests", function(){
     });
 
 
-    it("it should be able to find nested components with a selector", function(){
+    it("it should be able to find nested components with a selector", function () {
         var Component = createReactClass({
-            render: function(){
+            render: function () {
                 return (
                     <div id="myid">
                         <ul>
@@ -156,9 +156,9 @@ describe("react-testutils-additions tests", function(){
         expect(result[0].innerHTML).toBe("active");
     });
 
-    it("it should be able to find multiple nested components with a selector", function(){
+    it("it should be able to find multiple nested components with a selector", function () {
         var Component = createReactClass({
-            render: function(){
+            render: function () {
                 return (
                     <div id="myid">
                         <article>
@@ -180,9 +180,9 @@ describe("react-testutils-additions tests", function(){
         expect(result[1].innerHTML).toBe("Lorem ipsum 2");
     });
 
-    it("it should return an empty array when a component by tag could not be found", function(){
+    it("it should return an empty array when a component by tag could not be found", function () {
         var Component = createReactClass({
-            render: function(){
+            render: function () {
                 return (
                     <div id="myid">
                         <article></article>
@@ -197,9 +197,9 @@ describe("react-testutils-additions tests", function(){
         expect(result.length).toBe(0);
     });
 
-    it("it should be able to findone when there is only one", function(){
+    it("it should be able to findone when there is only one", function () {
         var Component = createReactClass({
-            render: function(){ return (<div className="myclass"><div id="myid"></div></div>); }
+            render: function () { return (<div className="myclass"><div id="myid"></div></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
@@ -211,40 +211,42 @@ describe("react-testutils-additions tests", function(){
         expect(idResult.id).toBe("myid");
     });
 
-    it("it should throw when findOne finds more than one", function(){
+    it("it should throw when findOne finds more than one", function () {
         var Component = createReactClass({
-            render: function(){ return (<div>
-                                            <span className="myclass"></span>
-                                            <span className="myclass"></span>
-                                        </div>); }
+            render: function () {
+                return (<div>
+                    <span className="myclass"></span>
+                    <span className="myclass"></span>
+                </div>);
+            }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-        var findAction = function(){
+        var findAction = function () {
             TestUtils.findOne(RenderedComponent, ".myclass");
         };
 
         expect(findAction).toThrowError("find one failed for '.myclass' (found: 2)");
     });
 
-    it("it should throw when findOne does not find anything", function(){
+    it("it should throw when findOne does not find anything", function () {
         var Component = createReactClass({
-            render: function(){ return (<div></div>); }
+            render: function () { return (<div></div>); }
         });
 
         var RenderedComponent = TestUtils.renderIntoDocument(<Component />);
 
-        var findAction = function(){
+        var findAction = function () {
             TestUtils.findOne(RenderedComponent, ".myclass");
         };
 
         expect(findAction).toThrowError("find one failed for '.myclass' (found: 0)");
     });
 
-    it("should be able to find components with multiple selectors on the same element", function() {
+    it("should be able to find components with multiple selectors on the same element", function () {
         var Component = createReactClass({
-            render: function(){
+            render: function () {
                 return (
                     <div id="myid">
                         <ul>
@@ -267,20 +269,42 @@ describe("react-testutils-additions tests", function(){
         expect(result[0].innerHTML).toBe("active");
     });
 
-    describe("Prop helpers", function(){
+    it("it should support a render function that returns null", function () {
+        var wasUnmounted = false;
+
+        var Component = createReactClass({
+            componentWillUnmount: function () { wasUnmounted = true; },
+            render: function () { return null; }
+        });
+
+        var node = document.createElement('div');
+        var RenderedComponent = ReactDOM.render(<Component />, node);
+        
+        expect(RenderedComponent).toBeDefined();
+        
+        var expectedError = function() { 
+            TestUtils.find(RenderedComponent, '.some-selector'); 
+        };
+        expect(expectedError).toThrowError(/Failed to find/);
+        
+        ReactDOM.unmountComponentAtNode(node);
+        expect(wasUnmounted).toBe(true);
+    });
+
+    describe("Prop helpers", function () {
 
         var propUpdated = jasmine.createSpy(), updatedProps = {};
 
-        it("it should be able to update the props by using the test container wrapper", function(){
+        it("it should be able to update the props by using the test container wrapper", function () {
             var Component = createReactClass({
                 getDefaultProps: function () {
                     return { foo: "foo", bar: "bar" }
                 },
-                componentWillReceiveProps: function(nextProps) {
+                componentWillReceiveProps: function (nextProps) {
                     updatedProps = nextProps;
                     propUpdated();
                 },
-                render: function(){ return (<div id="findme"></div>); }
+                render: function () { return (<div id="findme"></div>); }
             });
 
             var WrappedComponent = TestUtils.renderIntoTestContainer(<Component />);

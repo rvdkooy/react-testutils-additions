@@ -12,9 +12,15 @@ RTA.findDOMNode = function(root){
 };
 
 RTA.find = function(root, selector){
-    var domInstance = ReactDOM.findDOMNode(root);
     // react always renders the root component in a parent DIV,
-    // so using the parentNode should not be a problem.
+    // so using the parentNode should work in most cases
+    var domInstance = ReactDOM.findDOMNode(root);
+    
+    // except when you return null in the render function
+    if (!domInstance) {
+        throw new Error('Failed to find "' + selector + '", cannot find a dom node for the component');
+    }
+
     var result = sizzle(selector, domInstance.parentNode);
     return result;
 };
@@ -61,7 +67,11 @@ RTA.findRenderedDOMComponentWithId = function(root, propValue) {
 };
 
 RTA.unmountFromDocument = function(root) {
-    ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(root).parentNode);
+    var element = ReactDOM.findDOMNode(root);
+    if (!element) {
+        throw new Error('Failed to unmount from document, cannot find a dom node for the component.');
+    }
+    ReactDOM.unmountComponentAtNode(element.parentNode);
 };
 
 RTA.renderIntoTestContainer = function(instance) {
